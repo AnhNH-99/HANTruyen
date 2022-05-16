@@ -1,5 +1,6 @@
 ﻿using HANTruyen.Models.EF;
 using HANTruyen.Models.Entities;
+using HANTruyen.ViewModels.Stories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,22 @@ namespace HANTruyen.Repositories.Stories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Story>> GetListStoryAsync()
+        public async Task<List<StoryViewModel>> GetListStoryAsync()
         {
-            return await _context.Stories.ToListAsync();
+            return await _context.Stories.Select(x => new StoryViewModel() { 
+                Id = x.Id,
+                Name = x.Name,
+                Title = x.Title,
+                Description = x.Description,
+                Author = x.Author,
+                Views = x.Views,
+                Likes = x.Likes,
+                Follows = x.Follows,
+                CreatedAt = x.CreatedAt,
+                CreatedBy = x.CreatedBy,
+                UpdatedAt = x.UpdatedAt,
+                UpdatedBy = x.UpdatedBy
+            }).ToListAsync();
         }
 
         public async Task<Story> GetStoryByIdAsync(int id)

@@ -16,7 +16,7 @@ namespace HANTruyen.Models.EF
         string CreatedBy { get; set; }
         string UpdatedBy { get; set; }
     }
-    public class HANTruyenDbContext:DbContext
+    public class HANTruyenDbContext : DbContext
     {
         public HANTruyenDbContext(DbContextOptions options) : base(options)
         {
@@ -31,23 +31,18 @@ namespace HANTruyen.Models.EF
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             var now = DateTime.UtcNow;
-            foreach(var changedEntity in ChangeTracker.Entries())
+            var AddedEntities = ChangeTracker.Entries().Where(E => E.State == EntityState.Added).ToList();
+            AddedEntities.ForEach(E =>
             {
-                if (changedEntity.Entity is IEntity entity)
-                {
-                    switch (changedEntity.State)
-                    {
-                        case EntityState.Added:
-                            entity.CreatedAt = now;
-                            entity.CreatedBy = "AnhNH";
-                            break;
-                        case EntityState.Modified:
-                            entity.UpdatedAt = now;
-                            entity.UpdatedBy = "AnhNH";
-                            break;
-                    }
-                }
-            }
+                E.Property("CreatedAt").CurrentValue = now;
+                E.Property("CreatedBy").CurrentValue = "AnhNH";
+            });
+            var EditedEntities = ChangeTracker.Entries().Where(E => E.State == EntityState.Modified).ToList();
+            EditedEntities.ForEach(E =>
+            {
+                E.Property("UpdatedAt").CurrentValue = now;
+                E.Property("UpdatedBy").CurrentValue = "AnhNH";
+            });
             return await base.SaveChangesAsync(cancellationToken);
         }
     }

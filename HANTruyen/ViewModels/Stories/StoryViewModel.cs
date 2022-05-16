@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HANTruyen.ViewModel
+namespace HANTruyen.ViewModels.Stories
 {
     public class StoryViewModel
     {
@@ -20,7 +20,6 @@ namespace HANTruyen.ViewModel
         public DateTime? UpdatedAt { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
-        public Boolean DeletedFlag { get; set; }
 
     }
 }

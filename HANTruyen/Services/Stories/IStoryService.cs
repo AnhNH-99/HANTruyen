@@ -1,4 +1,5 @@
 ﻿using HANTruyen.Models.Entities;
+using HANTruyen.ViewModels.Stories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,10 @@ namespace HANTruyen.Services.Stories
 {
     public interface IStoryService
     {
-        public Task<List<Story>> GetListStoryAsync();
+        public Task<List<StoryViewModel>> GetListStoryAsync();
         public Task<Story> GetStoryByIdAsync(int id);
-        public Task CreateStoryAsync(Story story);
-        public Task UpdateStoryAsync(Story story);
+        public Task CreateStoryAsync(StoryCreateViewModel story);
+        public Task UpdateStoryAsync(StoryEditViewModel story);
         public Task<Boolean> StoryExists(int id);
         public Task DeleteStoryAsync(int id);
     }

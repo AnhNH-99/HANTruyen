@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HANTruyen.Models.EF;
 using HANTruyen.Models.Entities;
 using HANTruyen.Services.Stories;
+using HANTruyen.ViewModels.Stories;
 
 namespace HANTruyen.Controllers
 {
@@ -55,7 +56,7 @@ namespace HANTruyen.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Title,Description,Status,Author,Views,Follows,Likes,CreatedAt,UpdatedAt,CreatedBy,UpdatedBy,DeletedFlag")] Story story)
+        public async Task<IActionResult> Create([Bind("Name,Title,Description,Author")] StoryCreateViewModel story)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +79,16 @@ namespace HANTruyen.Controllers
             {
                 return NotFound();
             }
-            return View(story);
+            var storyView = new StoryEditViewModel()
+            {
+                Id = story.Id,
+                Name = story.Name,
+                Title = story.Title,
+                Description = story.Description,
+                Status = story.Status,
+                Author = story.Author
+            };
+            return View(storyView);
         }
 
         // POST: Story/Edit/5
@@ -86,7 +96,7 @@ namespace HANTruyen.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Title,Description,Status,Author,Views,Follows,Likes,CreatedAt,UpdatedAt,CreatedBy,UpdatedBy,DeletedFlag")] Story story)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Title,Description,Status,Author,")] StoryEditViewModel story)
         {
             if (id != story.Id)
             {
