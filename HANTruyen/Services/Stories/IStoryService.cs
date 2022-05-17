@@ -10,7 +10,7 @@ namespace HANTruyen.Services.Stories
     public interface IStoryService
     {
         public Task<List<StoryViewModel>> GetListStoryAsync();
-        public Task<Story> GetStoryByIdAsync(int id);
+        public Task<StoryViewModel> GetStoryByIdAsync(int id);
         public Task CreateStoryAsync(StoryCreateViewModel story);
         public Task UpdateStoryAsync(StoryEditViewModel story);
         public Task<Boolean> StoryExists(int id);

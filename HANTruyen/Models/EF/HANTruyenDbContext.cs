@@ -25,9 +25,11 @@ namespace HANTruyen.Models.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new StoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ChapterConfiguration());
         }
 
         public DbSet<Story> Stories { get; set; }
+        public DbSet<Chapter> Chapters { get; set; }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             var now = DateTime.UtcNow;

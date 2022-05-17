@@ -39,9 +39,27 @@ namespace HANTruyen.Services.Stories
             return await _storyRepository.GetListStoryAsync();
         }
 
-        public async Task<Story> GetStoryByIdAsync(int id)
+        public async Task<StoryViewModel> GetStoryByIdAsync(int id)
         {
-            return await _storyRepository.GetStoryByIdAsync(id);
+            var story = await _storyRepository.GetStoryByIdAsync(id);
+            var storyView = new StoryViewModel();
+            if (story != null)
+            {
+                storyView.Id = story.Id;
+                storyView.Name = story.Name;
+                storyView.Title = story.Title;
+                storyView.Description = story.Description;
+                storyView.Status = story.Status;
+                storyView.Author = story.Author;
+                storyView.Views = story.Views;
+                storyView.Likes = story.Likes;
+                storyView.Follows = story.Follows;
+                storyView.CreatedAt = story.CreatedAt;
+                storyView.CreatedBy = story.CreatedBy;
+                storyView.UpdatedAt = story.UpdatedAt;
+                storyView.UpdatedBy = story.UpdatedBy;
+            }
+            return storyView;
         }
 
         public async Task<bool> StoryExists(int id)

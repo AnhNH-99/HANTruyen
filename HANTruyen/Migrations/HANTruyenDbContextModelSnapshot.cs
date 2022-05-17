@@ -19,6 +19,77 @@ namespace HANTruyen.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("HANTruyen.Models.Entities.Chapter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("CREATED_AT")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnName("CREATED_BY")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("DeletedFlag")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("DELETED_FLAG")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Description")
+                        .HasColumnName("DESCRIPTION")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Likes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("LIKES")
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("Name")
+                        .HasColumnName("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnName("STATUS")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StroyId")
+                        .HasColumnName("STORY_ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnName("TITLE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnName("UPDATED_AT")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnName("UPDATED_BY")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<int>("Views")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("VIEWS")
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StroyId");
+
+                    b.ToTable("CHAPTER");
+                });
+
             modelBuilder.Entity("HANTruyen.Models.Entities.Story", b =>
                 {
                     b.Property<int>("Id")
@@ -32,10 +103,8 @@ namespace HANTruyen.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("CREATED_AT")
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GetUtcDate()");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnName("CREATED_BY")
@@ -80,10 +149,8 @@ namespace HANTruyen.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("UPDATED_AT")
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GetUtcDate()");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnName("UPDATED_BY")
@@ -99,6 +166,15 @@ namespace HANTruyen.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("STORY");
+                });
+
+            modelBuilder.Entity("HANTruyen.Models.Entities.Chapter", b =>
+                {
+                    b.HasOne("HANTruyen.Models.Entities.Story", "Story")
+                        .WithMany("Chapters")
+                        .HasForeignKey("StroyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
