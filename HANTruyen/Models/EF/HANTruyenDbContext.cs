@@ -26,10 +26,13 @@ namespace HANTruyen.Models.EF
         {
             modelBuilder.ApplyConfiguration(new StoryConfiguration());
             modelBuilder.ApplyConfiguration(new ChapterConfiguration());
+            modelBuilder.ApplyConfiguration(new ContentConfiguration());
         }
 
         public DbSet<Story> Stories { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
+        public DbSet<Content> Contents { get; set; }
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             var now = DateTime.UtcNow;

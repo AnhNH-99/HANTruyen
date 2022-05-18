@@ -21,5 +21,6 @@ namespace HANTruyen.Models.Entities
         public string UpdatedBy { get; set; }
         public Boolean DeletedFlag { get; set; }
         public Story Story { get; set; }
+        public List<Content> Contents { get; set; }
     }
 }

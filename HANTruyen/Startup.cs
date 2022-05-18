@@ -1,6 +1,6 @@
 using HANTruyen.Models.EF;
-using HANTruyen.Repositories.Stories;
 using HANTruyen.Services.Chapters;
+using HANTruyen.Services.Contents;
 using HANTruyen.Services.Stories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,9 +33,9 @@ namespace HANTruyen
             services.AddDbContext<HANTruyenDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("HANTruyenConStr")));
 
-            services.AddScoped<IStoryRepository, StoryRepository>();
             services.AddScoped<IStoryService, StoryService>();
             services.AddScoped<IChapterService, ChapterService>();
+            services.AddScoped<IContentService, ContentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

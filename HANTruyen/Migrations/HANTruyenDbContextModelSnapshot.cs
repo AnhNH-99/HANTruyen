@@ -90,6 +90,59 @@ namespace HANTruyen.Migrations
                     b.ToTable("CHAPTER");
                 });
 
+            modelBuilder.Entity("HANTruyen.Models.Entities.Content", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BaseImage")
+                        .IsRequired()
+                        .HasColumnName("BASE_IMAGE")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ChapterId")
+                        .HasColumnName("CHAPTER_ID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("CREATED_AT")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnName("CREATED_BY")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("DeletedFlag")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("DELETED_FLAG")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .HasColumnName("NAME")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnName("UPDATED_AT")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnName("UPDATED_BY")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChapterId");
+
+                    b.ToTable("CONTENT");
+                });
+
             modelBuilder.Entity("HANTruyen.Models.Entities.Story", b =>
                 {
                     b.Property<int>("Id")
@@ -173,6 +226,15 @@ namespace HANTruyen.Migrations
                     b.HasOne("HANTruyen.Models.Entities.Story", "Story")
                         .WithMany("Chapters")
                         .HasForeignKey("StroyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HANTruyen.Models.Entities.Content", b =>
+                {
+                    b.HasOne("HANTruyen.Models.Entities.Chapter", "Chapter")
+                        .WithMany("Contents")
+                        .HasForeignKey("ChapterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
