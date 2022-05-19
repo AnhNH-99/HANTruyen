@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HANTruyen.ViewModels.Chapters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace HANTruyen.ViewModels.Stories
         public DateTime? UpdatedAt { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public List<ChapterViewModel> Chapters { get; set; }
 
     }
 }
